@@ -1,0 +1,4 @@
+if(age !== 17){
+   alert ("young")
+} else {
+    alert ("adult")
