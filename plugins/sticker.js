@@ -14,7 +14,7 @@ command(
     let buff = await m.quoted.download();
     message.sendMessage(
       buff,
-      { packname: config.PACKNAME, author: config.AUTHOR },
+      { packname: config.PACKNAME },
       "sticker"
     );
   }
@@ -50,7 +50,7 @@ command(
       );
       await message.sendMessage(
         `https://api.telegram.org/file/bot891038791:AAHWB1dQd-vi0IbH2NjKYUk-hqQ8rQuzPD4/${file_path.result.file_path}`,
-        { packname: config.PACKNAME, author: config.AUTHOR },
+        { packname: config.PACKNAME },
         "sticker"
       );
       sleep(1500);
@@ -73,7 +73,6 @@ command(
       buff,
       {
         packname: packname || config.PACKNAME,
-        author: author || config.AUTHOR,
       },
       "sticker"
     );

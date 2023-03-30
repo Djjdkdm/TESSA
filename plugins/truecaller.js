@@ -1,6 +1,6 @@
 const {find} = require('abu-bot')
 const {command, isPrivate } = require('../lib/');
-command({pattern: 'true ?(.*)', desc: 'Searches for number in truecaller!',type: 'search',fromMe: isPrivate}, async (message, query) => {
+command({pattern: 'true ?(.*)',type: 'search',fromMe: isPrivate}, async (message, query) => {
 let user =  (message.mention[0] || message.reply_message?.jid || query[1]).split("@")[0]
 if (!user) return await message.reply("_Need number/reply/mention_");
 const trueCaller = async (num) => {try { var res = await find(num,'',message.client.user.id) } catch { var res = false }; return res;}

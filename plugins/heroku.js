@@ -10,13 +10,34 @@ const git = simpleGit();
 const exec = require("child_process").exec;
 const { SUDO } = require("../config");
 
+command(
+  {       pattern: "restart",
+          fromMe: false,
+          type: "owner"
+ },
+ async(message,match) => {
+  const buttons = [
+  {buttonId: 'amarok', buttonText: {displayText: 'RESTART'}, type: 1},
+  {buttonId: 'st', buttonText: {displayText: 'SHUTDOWN'}, type: 1}
+]
+let buttonMessage = {
+    text: `◉═════════════◉
+         ᴀᴍᴀʀᴏᴋ ʀᴇsᴛᴀʀᴛ sʏsᴛᴇᴍ
+ ◉═════════════◉`,
+    footer: 'AMAROK SYSTEM',
+    buttons: buttons,
+    headerType: 1
+}
+
+return await message.client.sendMessage(message.jid, buttonMessage)
+})
 
 command(
   {
-    pattern: "restart",
+    pattern: "amarok",
     fromMe: true,
-    type: "heroku",
-    type: "heroku",
+    type: "Vps",
+    type: "Vps",
   },
   async (message) => {
     await message.sendMessage(`_Restarting_`);
@@ -28,10 +49,10 @@ command(
 
 command(
   {
-    pattern: "shutdown",
+    pattern: "st",
     fromMe: true,
-    type: "heroku",
-    type: "heroku",
+    type: "Vps",
+    type: "Vps",
   },
   async (message) => {
     await heroku
@@ -50,78 +71,12 @@ command(
   }
 );
 
-
-command(
-  {
-    pattern: "dyno",
-    fromMe: true,
-    type: "heroku",
-  },
-  async (message) => {
-    try {
-      heroku
-        .get("/account")
-        .then(async (account) => {
-          const url = `https://api.heroku.com/accounts/${account.id}/actions/get-quota`;
-          headers = {
-            "User-Agent": "Chrome/80.0.3987.149 Mobile Safari/537.36",
-            Authorization: "Bearer " + Config.HEROKU_API_KEY,
-            Accept: "application/vnd.heroku+json; version=3.account-quotas",
-          };
-          const res = await got(url, { headers })
-						const resp = JSON.parse(res.body)
-						const total_quota = Math.floor(resp.account_quota)
-						const quota_used = Math.floor(resp.quota_used)
-						const remaining = total_quota - quota_used
-						const quota = `Total Quota : ${secondsToDHMS(total_quota)}
-Used  Quota : ${secondsToDHMS(quota_used)}
-Remaning    : ${secondsToDHMS(remaining)}`
-						await message.send('```' + quota + '```');
-					})
-        .catch(async (error) => {
-           await message.sendMessage(`_HEROKU : ${error.message}`);
-        });
-    } catch (error) {
-      await message.sendMessage(error);
-    }
-  }
-);
-
-
-command(
-  {
-    pattern: "setvar ",
-    fromMe: true,
-    type: "heroku",
-    type: "heroku",
-  },
-  async (message, match) => {
-     if (!match) return await message.sendMessage(`_Example: delvar sudo_`);
-      const [key, value] = match.split(":");
-    if (!key || !value)
-      return await message.sendMessage(`_Example: .setvar SUDO:27686881509`);
-    heroku
-      .patch(baseURI + "/config-vars", {
-        body: {
-          [key.toUpperCase()]: value,
-        },
-      })
-      .then(async () => {
-        await message.sendMessage(`_${key.toUpperCase()}: ${value}_`);
-      })
-      .catch(async (error) => {
-        await message.sendMessage(`HEROKU : ${error.body.message}`);
-      });
-  }
-);
-
-
 command(
   {
     pattern: "delvar ",
     fromMe: true,
-    type: "heroku",
-    type: "heroku",
+    type: "Vps",
+    type: "Vps",
   },
   async (message, match) => {
     if (!match) return await message.sendMessage(`_Example: delvar sudo_`);
@@ -144,56 +99,3 @@ command(
       });
   }
 );
-
-
-command(
-  {
-    pattern: "getvar ",
-    fromMe: true,
-    type: "heroku",
-    type: "heroku",
-  },
-  async (message, match) => {
-    if (!match) return await message.sendMessage(`_Example: getvar sudo_`);
-    const key = match.trim().toUpperCase();
-    heroku
-      .get(baseURI + "/config-vars")
-      .then(async (vars) => {
-        if (vars[key]) {
-          return await message.sendMessage(
-            "_{} : {}_".replace("{}", key).replace("{}", vars[key])
-          );
-        }
-        await message.sendMessage(`${key} not found`);
-      })
-      .catch(async (error) => {
-        await message.sendMessage(`HEROKU : ${error.body.message}`);
-      });
-  }
-);
-
-
-command(
-  {
-    pattern: "allvar",
-    fromMe: true,
-    type: "heroku",
-    type: "heroku",
-  },
-  async (message) => {
-    let msg = "```Here your all Heroku vars\n\n\n";
-    heroku
-      .get(baseURI + "/config-vars")
-      .then(async (keys) => {
-        for (const key in keys) {
-          msg += `${key} : ${keys[key]}\n\n`;
-        }
-        return await message.sendMessage(msg + "```");
-      })
-      .catch(async (error) => {
-        await message.sendMessage(`HEROKU : ${error.body.message}`);
-      });
-  }
-);
-
-
