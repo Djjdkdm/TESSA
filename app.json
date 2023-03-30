@@ -1,58 +1,112 @@
 {
-  "name": "AMAROK MD",
-  "description": "amarok md - made by cybxkid",
-  "keywords": ["whatsapp-bot", "multi-device", "amarok-md", "cybxkid"],
-  "repository": "https://github.com/Diegoson/AMAROK-MD",
+  "name": "amarok-md",
+  "description": "amarok md powered by cyberxkid",
   "logo": "https://i.imgur.com/vwNY4lg.jpeg",
-  "stack": "container",
+  "repository": "https://github.com/Diegoson/AMAROK-MD.git",
+  "keywords": ["Amarok","Bot","Amarok-Md"],
   "env": {
-    "SESSION_ID": {
-      "description": "session id required add your session id here",
-      "required": true,
+   "SESSION_ID": {
+      "description": "session id needed add your session id here",
+      "required": false,
       "value": ""
     },
     "SUDO": {
-      "description": "add admin sudo here(Example..27686881509)",
-      "required": true,
-      "value": "null"
+      "description": "sudo numbers with country code Example 27686881509",
+      "required": false
+    },
+    "ANTI_LINK": {
+      "description": "true/false",
+      "required": false,
+      "value": ""
+    },
+    "HANDLERS": {
+      "description": "Prefix of the bot used to run it",
+      "required": false,
+      "value": "."
+    },
+    "PACKNAME": {
+      "description": "Sticker Packname required Example Amarok",
+      "required": false,
+      "value": "𝐀𝐌𝐀𝐑𝐎𝐊"
+    },
+    "RMBG_KEY": {
+      "description": "Remove bg api key required get it here(https://www.remove.bg/api)",
+      "required": false,
+      "value": ""
+    },
+    "OWNER_NAME": {
+      "description": "Add owner name",
+      "required": false,
+      "value": "𝐂𝐘𝐁𝐄𝐑𝐗𝐊𝐈𝐃"
+    },
+    "BOT_INFO": {
+     "description": "Add all name to your name",
+     "required": false,
+     "value": "𝘈𝘮𝘢𝘳𝘰𝘬;𝘊𝘺𝘣𝘦𝘳𝘹𝘬𝘪𝘥;0;https://i.imgur.com/w5wr6c1.jpeg;https://chat.whatsapp.com/I3aOiLY2Ydc258VkV7p0Md"
+    },
+    "BOT_NAME": {
+      "description": "Add bot name",
+      "required": false,
+      "value": "𝐀𝐌𝐀𝐑𝐎𝐊"
+    },
+    "AUTHOR": {
+      "description": "Sticker Pack AUTHOR required Example Diegoson",
+      "required": false,
+      "value": "𝐂𝐘𝐁𝐄𝐑𝐗𝐊𝐈𝐃"
+    },
+    "ALIVE_LOGO": {
+      "description": "Add your logo link to alive message",
+      "required": false,
+      "value": "https://i.imgur.com/w5wr6c1.jpeg"
+    },
+   "SONG_DWNLD": {
+      "description": "Add text eg:Song Is Downloading Wait...!",
+      "required": false,
+      "value": "Song Is Downloading Wait...!"
     },
     "MODE": {
-      "description": "set mode private or public",
-      "required": true,
-      "value": "private"
+      "description": "Work Type set public or private",
+      "required": false,
+      "value": "public"
+    },
+    "THEME": {
+      "description": "Put the name of theme you want theme available SUPERMAN",
+      "required": true
     },
     "HEROKU_APP_NAME": {
-      "description": "heroku app name, same as above entered",
+      "description": "Heroku app name, same as above entered",
       "required": true
     },
     "HEROKU_API_KEY": {
-      "description": "heroku account api key, https://dashboard.heroku.com/account",
+      "description": "Heroku account api key, https://dashboard.heroku.com/account",
       "required": true
     },
-    "LOG_MSG": {
-      "description": "show whatsapp msgs in log",
+    "ALWAYS_ONLINE": {
+      "description": "Show bot number last see as online",
       "required": false,
       "value": "false"
-    },
-    "PREFIX": {
-      "description": "prefix for bot. all so can be null or false multi prefix",
-      "required": true,
-      "value": "."
-    },
-    "STICKER_PACKNAME": {
-      "description": "sticker pack info required",
-      "required": false,
-      "value": "☯︎ᴀᴍᴀʀᴏᴋ☯︎"
-    },
-    "LANGUAGE": {
-      "description": "bot language required add your bot language here.",
-      "required": false,
-      "value": "english"
     }
+
+},
+"buildpacks": [
+
+  {
+
+      "url": "heroku/nodejs"
+
   },
-  "addons": [
-    {
-      "plan": "heroku-postgresql"
-    }
-  ]
+
+  {
+
+      "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
+
+  },
+
+  {
+
+      "url": "https://github.com/clhuang/heroku-buildpack-webp-binaries.git"
+
+  }
+
+]
 }

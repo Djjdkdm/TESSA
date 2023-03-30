@@ -1,18 +1,6 @@
-const { Jsl } = require("../lib/");
-
-Jsl({pattern: "ping ?(.*)",
-    fromMe: isPublic,
-    desc: "Measures ping",
-    type: "utility",
- },
-  async (message, match) => {
-    const start = new Date().getTime();
-    await message.sendMessage("```_❮ ᴛᴇsᴛɪɴɢ ᴘɪɴɢ ❯_```");
-    const end = new Date().getTime();
-    return await message.sendMessage(
-      "_ʀᴇsᴘᴏɴsᴇ ɪɴ ' + (end - start) + ' _ᴍs_"
-    );
-  }
-);
-
-
+/* Copyright (C) 2022 Diegoson.
+Licensed under the  GPL-3.0 License;
+you may not use this file except in compliance with the License.
+Amarok - Diegoson
+*/
+const _0x3657a9=_0x3fc9;function _0x3fc9(_0x463a48,_0x26317e){const _0x498f6e=_0x498f();return _0x3fc9=function(_0x3fc9f5,_0x55a852){_0x3fc9f5=_0x3fc9f5-0x168;let _0x3b76f1=_0x498f6e[_0x3fc9f5];return _0x3b76f1;},_0x3fc9(_0x463a48,_0x26317e);}(function(_0xe16775,_0x14a214){const _0x16b26d=_0x3fc9,_0xeebb19=_0xe16775();while(!![]){try{const _0x5cc0dd=parseInt(_0x16b26d(0x174))/0x1*(-parseInt(_0x16b26d(0x168))/0x2)+-parseInt(_0x16b26d(0x178))/0x3+parseInt(_0x16b26d(0x16a))/0x4+-parseInt(_0x16b26d(0x176))/0x5*(-parseInt(_0x16b26d(0x16b))/0x6)+parseInt(_0x16b26d(0x169))/0x7*(-parseInt(_0x16b26d(0x171))/0x8)+-parseInt(_0x16b26d(0x173))/0x9*(-parseInt(_0x16b26d(0x172))/0xa)+parseInt(_0x16b26d(0x16d))/0xb*(parseInt(_0x16b26d(0x170))/0xc);if(_0x5cc0dd===_0x14a214)break;else _0xeebb19['push'](_0xeebb19['shift']());}catch(_0x2c624f){_0xeebb19['push'](_0xeebb19['shift']());}}}(_0x498f,0x7d460));function _0x498f(){const _0x5ce390=['1149322iCgTOC','7VWQqBS','895760vdgZyM','48RdEZVN','*❰\x20ʀᴇsᴘᴏɴsᴇ\x20ɪɴ\x20❱*\x0a\x20```','11XaDAug','sendMessage','```\x20*࿋ᴍs࿋*','10870728bZLnPD','2399568Qaudwf','5354870goYDFm','9fSYkTS','1zRPGWY','ping','5815mDbZLS','getTime','860694ozVTec'];_0x498f=function(){return _0x5ce390;};return _0x498f();}const {command,isPrivate}=require('../lib/');command({'pattern':_0x3657a9(0x175),'fromMe':isPrivate,'type':'user'},async(_0x48a129,_0x885599)=>{const _0x2a46b1=_0x3657a9,_0xd9369=new Date()[_0x2a46b1(0x177)]();await _0x48a129[_0x2a46b1(0x16e)]('❰\x20ᴄʜᴇᴄᴋɪɴɢ\x20sᴘᴇᴇᴅ\x20❱'),await _0x48a129[_0x2a46b1(0x16e)]('❰\x20ᴀᴍᴀʀᴏᴋ\x20sʜᴏᴡɪɴɢ\x20sᴘᴇᴇᴅ\x20ᴛᴇsᴛ\x20❱');const _0x5301ad=new Date()[_0x2a46b1(0x177)]();return await _0x48a129['sendMessage'](_0x2a46b1(0x16c)+(_0x5301ad-_0xd9369)+_0x2a46b1(0x16f));});
