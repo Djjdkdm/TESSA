@@ -54,24 +54,10 @@
       "required": false,
       "value": "𝐂𝐘𝐁𝐄𝐑𝐗𝐊𝐈𝐃"
     },
-    "ALIVE_LOGO": {
-      "description": "Add your logo link to alive message",
-      "required": false,
-      "value": "https://i.imgur.com/w5wr6c1.jpeg"
-    },
-   "SONG_DWNLD": {
-      "description": "Add text eg:Song Is Downloading Wait...!",
-      "required": false,
-      "value": "Song Is Downloading Wait...!"
-    },
     "MODE": {
       "description": "Work Type set public or private",
       "required": false,
       "value": "public"
-    },
-    "THEME": {
-      "description": "Put the name of theme you want theme available SUPERMAN",
-      "required": true
     },
     "HEROKU_APP_NAME": {
       "description": "Heroku app name, same as above entered",
@@ -80,11 +66,6 @@
     "HEROKU_API_KEY": {
       "description": "Heroku account api key, https://dashboard.heroku.com/account",
       "required": true
-    },
-    "ALWAYS_ONLINE": {
-      "description": "Show bot number last see as online",
-      "required": false,
-      "value": "false"
     }
 
 },

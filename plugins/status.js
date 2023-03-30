@@ -28,7 +28,6 @@
 let menu = `*👥User*: ${message.pushName}\n\n*👩‍💻Description*: Amarok a whatsapp userbot powered by cybxkid.\n\n*🧭Owner*: ${OWNER_NAME}\n\n*Powered by: ${message.pushName}`;
 
     const buttonMessage = {
-          image: { url: `https://i.ibb.co/6yVCHcL/38aa5206e8bc.jpg` },
           caption: "amarok md",
           footer: "amarok",
           headerType: 4,
@@ -36,10 +35,10 @@ let menu = `*👥User*: ${message.pushName}\n\n*👩‍💻Description*: Amarok 
                 externalAdReply: {
                 title: "amarok",
                 body: "amarok md",
-                thumbnail: `await (await fetch(URL OF IMAGE)). buffer(),
+                thumbnail: `https://i.ibb.co/6yVCHcL/38aa5206e8bc.jpg`,
                 mediaType: 4,
-                mediaUrl: "https://github.com/Diegoson/AMAROK-MD",
-                sourceUrl: "https://github.com/Diegoson/AMAROK-MD",
+                mediaUrl: "https://github.com/Diegoson",
+                sourceUrl: "https://github.com/Diegoson",
           },
        },
     };

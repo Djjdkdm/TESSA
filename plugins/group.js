@@ -26,7 +26,7 @@ command(
 command(
   {
     pattern: "kick",
-    fromMe: isPrivate,
+    fromMe: true,
     type: "group",
   },
   async (message, match) => {
@@ -69,7 +69,7 @@ command(
 command(
   {
     pattern: "promote",
-    fromMe: isPrivate,
+    fromMe: true,
     type: "group",
   },
   async (message, match) => {
@@ -90,7 +90,7 @@ command(
 command(
   {
     pattern: "demote",
-    fromMe: isPrivate,
+    fromMe: true,
     type: "group",
   },
   async (message, match) => {
