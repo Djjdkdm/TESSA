@@ -1,60 +1,145 @@
-console.log('Start...')
-let { spawn } = require('child_process')
-let path = require('path')
-let fs = require('fs')
-let package = require('./package.json')
-const CFonts = require('cfonts')
-CFonts.say('Ammu', {
-  colors: ['#f2aa4c'],
-  font: 'block',
-  align: 'center',
-})
-CFonts.say(`'${package.name}' By @${package.author.name || package.author}`, {
-  colors: ['#f2aa4c'],
-  font: 'console',
-  align: 'center',
-})
+const {
+  default: makeWASocket,
+  useSingleFileAuthState,
+  makeInMemoryStore,
+  fetchLatestBaileysVersion,
+  Browsers
+} = require("@adiwajshing/baileys");
+const {
+     DATABASE,
+     VERSION
+} = require('./config');
+const fs = require("fs");
+const { 
+         Message,
+         Image, 
+         Video,
+         PluginDB,
+         Greetings,
+         serialize
+ } = require("./lib/");
+const pino = require("pino");
+const path = require("path");
+const events = require("./lib/events");
+const got = require("got");
+const config = require("./config");
 
-var isRunning = false
-/**
- * Start a js file
- * @param {String} file `path/to/file`
- */
-function start(file) {
-  if (isRunning) return
-  isRunning = true
-  let args = [path.join(__dirname, file), ...process.argv.slice(2)]
-  CFonts.say([process.argv[0], ...args].join(' '), {
-    colors: ['#f2aa4c'],
-    font: 'console',
-    align: 'center',
-  })
-  let p = spawn(process.argv[0], args, {
-    stdio: ['inherit', 'inherit', 'inherit', 'ipc']
-  })
-  p.on('message', data => {
-    console.log('[RECEIVED]', data)
-    switch (data) {
-      case 'reset':
-        p.kill()
-        isRunning = false
-        start.apply(this, arguments)
-        break
-      case 'uptime':
-        p.send(process.uptime())
-        break
+const { DataTypes } = require('sequelize');
+
+const AbuDB = config.DATABASE.define('Abu', {
+    info: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    value: {
+        type: DataTypes.TEXT,
+        allowNull: false
     }
-  })
-  p.on('exit', code => {
-    isRunning = false
-    console.error('Exited with code:', code)
-    if (code === 0) return
-    fs.watchFile(args[0], () => {
-      fs.unwatchFile(args[0])
-      start(file)
-    })
-  })
-  // console.log(p)
+});
+
+async function bot() {
+  await config.DATABASE.sync();
+  const { state, saveState } = useSingleFileAuthState(
+    "./session.json",
+    pino({ level: "silent" })
+  );
+  const { version, isLatest } = await fetchLatestBaileysVersion();
+     const conn = makeWASocket({
+          logger: pino({ level: "silent" }),
+          auth: state,
+          printQRInTerminal: true,
+          browser: ['Abu MD','Safari','1.0.0'],
+          version
+     });
+
+  conn.ev.on("connection.update", async (s) => {
+    const { connection, lastDisconnect } = s;
+    if (connection === "connecting") {
+      console.log("Abu "+VERSION);
+      }
+
+    if (
+      connection === "close" &&
+      lastDisconnect &&
+      lastDisconnect.error &&
+      lastDisconnect.error.output.statusCode != 401
+    ) {
+      console.log(lastDisconnect.error.output.payload);
+      bot();
+    }
+
+    if (connection === "open") {
+      console.log("Login Successful!..✅");
+      console.log("Installing Plugins..✅.");
+
+      let plugins = await PluginDB.findAll();
+      plugins.map(async (plugin) => {
+        if (!fs.existsSync("./plugins/" + plugin.dataValues.name + ".js")) {
+          console.log(plugin.dataValues.name);
+          var response = await got(plugin.dataValues.url);
+          if (response.statusCode == 200) {
+            fs.writeFileSync(
+              "./plugins/" + plugin.dataValues.name + ".js",
+              response.body
+            );
+            require("./plugins/" + plugin.dataValues.name + ".js");
+          }
+        }
+      });
+
+      fs.readdirSync("./plugins").forEach((plugin) => {
+        if (path.extname(plugin).toLowerCase() == ".js") {
+          require("./plugins/" + plugin);
+        }
+      });
+      console.log("✅ Plugins Installed!");
+
+      try {
+        conn.ev.on("creds.update", saveState);
+
+        conn.ev.on("group-participants.update", async (data) => {
+          Greetings(data, conn);
+        });
+        conn.ev.on("messages.upsert", async (m) => {
+          if (m.type !== "notify") return;
+          let ms = m.messages[0];
+          let msg = await serialize(JSON.parse(JSON.stringify(ms)), conn);
+          if (!msg.message) return;
+          let text_msg = msg.body;
+          if (config.LOG_MSG === 'true') {
+          if (text_msg) console.log(text_msg);
+          }
+          events.commands.map(async (command) => {
+            if (msg.type === "videoMessage" && command.on === "video") {
+              whats = new Video(conn, msg, ms);
+              console.log(whats);
+            }
+            if (command.pattern && command.pattern.test(text_msg)) {
+              var match = text_msg.match(command.pattern)[1] || false;
+              whats = new Message(conn, msg, ms);
+              command.function(whats, match, msg, conn);
+            } else if (command.on === "text") {
+              whats = new Message(conn, msg, ms);
+              command.function(whats, text_msg, msg, conn);
+            } else if (
+              (command.on === "image" || command.on === "photo") &&
+              msg.type === "imageMessage"
+            ) {
+              whats = new Image(conn, msg, ms);
+              command.function(whats, text_msg, msg, conn);
+            }
+          });
+        });
+      } catch (e) {
+        console.log(e + "\n\n\n\n\n" + JSON.stringify(msg));
+      }
+    }
+  });
+  process.on("uncaughtException", (err) => {
+    let error = err.message;
+    conn.sendMessage(conn.user.id, { text: error });
+    console.log(err);
+  });
 }
 
-start('main.js')
+bot();

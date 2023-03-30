@@ -1,19 +1,58 @@
 {
-  "name": "CYBER-MD",
-  "description": "Cyber Not MD Created By Cyber X Kid With Many Features",
-  "repository": "https://github.com/Diegoson/CYBER-MD-BOT",
-  "logo": "https://i.imgur.com/KicIWqa.jpeg",
-  "keywords": ["nodejs", "bot", "whatsapp bot", "whatsapp automation", "multi device"],
-  "buildpacks": [
-              {
-                
-                "url": "heroku/nodejs"
-              },
-              {
-                "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
-              },
-              {
-                "url": "https://github.com/clhuang/heroku-buildpack-webp-binaries.git"
-              }
-            ]
-          }   
+  "name": "AMAROK MD",
+  "description": "amarok md - made by cybxkid",
+  "keywords": ["whatsapp-bot", "multi-device", "amarok-md", "cybxkid"],
+  "repository": "https://github.com/Diegoson/AMAROK-MD",
+  "logo": "https://i.imgur.com/vwNY4lg.jpeg",
+  "stack": "container",
+  "env": {
+    "SESSION_ID": {
+      "description": "session id required add your session id here",
+      "required": true,
+      "value": ""
+    },
+    "SUDO": {
+      "description": "add admin sudo here(Example..27686881509)",
+      "required": true,
+      "value": "null"
+    },
+    "MODE": {
+      "description": "set mode private or public",
+      "required": true,
+      "value": "private"
+    },
+    "HEROKU_APP_NAME": {
+      "description": "heroku app name, same as above entered",
+      "required": true
+    },
+    "HEROKU_API_KEY": {
+      "description": "heroku account api key, https://dashboard.heroku.com/account",
+      "required": true
+    },
+    "LOG_MSG": {
+      "description": "show whatsapp msgs in log",
+      "required": false,
+      "value": "false"
+    },
+    "PREFIX": {
+      "description": "prefix for bot. all so can be null or false multi prefix",
+      "required": true,
+      "value": "."
+    },
+    "STICKER_PACKNAME": {
+      "description": "sticker pack info required",
+      "required": false,
+      "value": "☯︎ᴀᴍᴀʀᴏᴋ☯︎"
+    },
+    "LANGUAGE": {
+      "description": "bot language required add your bot language here.",
+      "required": false,
+      "value": "english"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql"
+    }
+  ]
+}

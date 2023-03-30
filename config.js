@@ -1,28 +1,20 @@
-global.owner = ['27686881509','27686881509'] // Add your Whatsapp number here
-global.mods = [] // Want some help?
-global.prems = [] // Premium user has unlimited limit
-global.APIs = { // API Prefix
-  // name: 'https://website'
-  nrtm: 'https://nurutomo.herokuapp.com',
-  xteam: 'https://api.xteam.xyz'
-}
-global.APIKeys = { // APIKey Here
-  // 'https://website': 'apikey'
-  'https://api.xteam.xyz': 'd90a9e986e18778b'
-}
-
-// Sticker WM
-global.packname = 'ᴄʏʙᴇʀxᴋɪᴅ'
-global.author = 'ᴄʏʙᴇʀ-ᴍᴅ-ʙᴏᴛ'
-
-global.multiplier = 69 // The higher, The harder levelup
-
-let fs = require('fs')
-let chalk = require('chalk')
-let file = require.resolve(__filename)
-fs.watchFile(file, () => {
-  fs.unwatchFile(file)
-  console.log(chalk.redBright("Update 'config.js'"))
-  delete require.cache[file]
-  require(file)
-})
+const toBool = (x) => x == 'true'
+const { Sequelize } = require('sequelize')
+const { existsSync } = require('fs')
+if (existsSync('config.env')) require('dotenv').config({ path: './config.env' })
+const DATABASE_URL = process.env.DATABASE_URL === undefined ? './database.db' : process.env.DATABASE_URL
+module.exports = {
+    VERSION: 'v1.0.0',
+    SESSION_ID: (process.env.SESSION_ID || '').trim(),
+    MODE: process.env.MODE || 'private',
+    DATABASE: DATABASE_URL === './database.db' ? new Sequelize({ dialect: 'sqlite', storage: DATABASE_URL, logging: false }) : new Sequelize(DATABASE_URL, {dialect: 'postgres', ssl: true, protocol: 'postgres', dialectOptions: { native: true, ssl: { require: true, rejectUnauthorized: false },}, logging: false }),
+    HANDLERS: process.env.PREFIX || '^[.,!]',
+    SUDO: process.env.SUDO || '27686881509',
+    HEROKU_APP_NAME: process.env.HEROKU_APP_NAME,
+    HEROKU_API_KEY: process.env.HEROKU_API_KEY,
+    BOT_INFO: process.env.BOT_INFO || 'Cyber;27686881509;https://i.imgur.com/vwNY4lg.jpeg',
+    STICKER_PACKNAME: process.env.STICKER_PACKNAME || '☯︎ᴀᴍᴀʀᴏᴋ☯︎',
+    READ_MSG: process.env.READ_MSG || 'true', 
+    LOG_MSG: toBool(process.env.LOG_MSG) || false,
+    LANG: (process.env.LANGUAGE || 'english').toLowerCase(),
+};
