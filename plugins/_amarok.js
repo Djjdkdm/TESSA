@@ -9,7 +9,7 @@ const thumb = "https://telegra.ph/file/e1fa1db5368bc7eb40c95.png";
 
 command(
   {
-    pattern: "list",
+    pattern: "menu",
     fromMe: isPrivate,
     desc: "Show All commands",
     dontAddCommandList: true,
@@ -29,14 +29,7 @@ Description : ${i.desc}\`\`\``
       let [date, time] = new Date()
         .toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })
         .split(",");
-      let menu = `┏━━━━━⟪ ${BOT_NAME} ⟫━━━⦿
-┃ ✗ *OWNER* :  ${OWNER_NAME}
-┃ ✗ *PREFIX* : ${HANDLERS}
-┃ ✗ *USER* : ${message.pushName}
-┃ ✗ *DATE* : ${date}
-┃ ✗ *TIME* : ${time}
-┗━━━━━━━━━━━━━━━⦿
-┏━━━『 *UPDATED* 』━━━❖\n╽`;
+      let menu = `TESSA-TEST`;
       let cmnd = [];
       let cmd;
       let category = [];
@@ -59,225 +52,33 @@ Description : ${i.desc}\`\`\``
 
           if (!category.includes(type)) category.push(type);
         }
-      });
+       });
       cmnd.sort();
       category.sort().forEach((cmmd) => {
-       menu += `
-┃┏━━━━━━━━━━━━━◆
-┣┫ *❃---- ${cmmd} ----✯*
-┃┗┯━━━━━━━━━━━━◆
-┠┬┤`
+       menu += ` ${cmmd} `
         let comad = cmnd.filter(({ type }) => type == cmmd);
         comad.forEach(({ cmd }, num) => {
-          menu += `\n┃│❒✗ ${(num += 1)} ${cmd.trim()}`;
+          menu += `\n ${(num += 1)} ${cmd.trim()}`;
         });
-        menu += `\n┃╰─────────────◆\n┃`;
-      });             
-
-
-      menu += `\n┗━━━━━━━━━━━╾ᐧᐧᐧᐧ⦿`;
+         menu += ``
+         });
+        menu += ``;
       return await message.client.sendMessage(message.jid, {
-      image: { url: 'https://telegra.ph/file/6086f101a36f7fc14bff6.png', },
+      image: { url: 'https://i.imgur.com/A5CwR8X.jpeg', },
       caption: tiny(menu),
       footer: tiny(
-             `amarok-md`),
-      buttons: [
-        {buttonId: 'alive', buttonText: {displayText: 'ALIVE TEST'}},
-      {buttonId: 'ping', buttonText: {displayText: 'SPEED TEST'}}
-    ],
-    
+             `tessa-md`),
     contextInfo: {
 				externalAdReply: {
-					title:  "AMAROK-MD",
+					title:  "TESSA-MD",
 					body: "TOXIC-TEAM",
 					mediaType: 2,
 					thumbnail: logo,
-					mediaUrl: 'https://amarok-deploy.vercel.app',
-					sourceUrl: 'https://amarok-deploy.vercel.app',
+					mediaUrl: 'umb',
+					sourceUrl: 'hmm',
 					showAdAttribution: true
 					}
 				}
 			}, {quoted: message})
 			}
 })
-
- //===========================================================================
-/*command({
-            pattern: "menu",
-            fromMe: isPrivate,
-            dontAddCommandList: true,
-         },
-        async (message, match, m) => {
-
-            let [date, time] = new Date()
-                .toLocaleString("en-IN", {
-                    timeZone: "Africa/Johannesburg"
-                })
-                .split(",");
-            let menu = `
-    ╭───────────㋰
-    │╭──[ ${BOT_NAME} ]──㋰
-    ││USER :  ${message.pushName}
-    ││NUMBER :  ${m.sender.split("@")[0]}
-    ││WORKTYPE : ${WORK_TYPE}
-    │╰──㋰
-    │
-    │╭──[ "INFO BOT"]──㋰
-    ││BOTNAME : ${BOT_NAME}
-    ││TIME : ${time}
-    ││DATE : ${date}
-    ││OWNER : ${OWNER_NAME}
-    ││PREFIX : ${HANDLERS}
-    ││HOSTNAME : ${hostname().split("-")[0]}
-    │╰──㋰
-    ╰───────────㋰\n`
-
-            let buttons = [
-                {
-                    buttonId: "ping",
-                    buttonText: {
-                        displayText: tiny("SPEED")
-                    },
-       },
-                {
-                    buttonId: "list",
-                    buttonText: {
-                        displayText: tiny("LIST")
-                    },
-       }
-    ]
-            let contextInfo = {
-                externalAdReply: {
-                    title: "AMAROK-MD",
-                    body: "TOXIC-TEAM",
-                    mediaType: 2,
-                    thumbnail: 'https://telegra.ph/file/6086f101a36f7fc14bff6.png',
-                    mediaUrl: 'https://amarok-deploy.vercel.app',
-                    sourceUrl: 'https://amarok-deploy.vercel.app',
-                    showAdAttribution: true
-                }
-            }
-
-            const listMessage = {
-                image: {
-                    url: 'https://telegra.ph/file/6086f101a36f7fc14bff6.png'
-                 },
-                caption: tiny(menu),
-                footer: "amarok",
-                buttons: buttons,
-                contextInfo: contextInfo
-            }
-
-            return await message.client.sendMessage(message.jid,
-                listMessage, {
-                    quoted: message
-                })
-        });
-*/
-//=======================================================================================
-//               AMAROK ALIVE MSG
-//========================================================================================
-
-command(
-  {
-    pattern: "alive",
-    fromMe: isPrivate,
-    dontAddCommandList: true,
-  },
-async (message,match) => {
-	
-	let [date, time] = new Date()
-      .toLocaleString("en-IN", { timeZone: "Africa/Johannesburg" })
-      .split(",");
-let alive = `
-
- *🚦Botname: ${BOT_NAME}
- *🚦Uptime: ${time}
- *⌚Date: ${date}
- *🕸Version: ${require("../package.json").version}
- *👤Owner: ${OWNER_NAME}
- *🎗Prefix: ${HANDLERS}
- *🏅Useer: ${message.pushName}
- *🚦Working hours: ${clockString (uptime())}
-`;
-
-await message.client.sendMessage(message.jid,{
-image: { url: `https://i.ibb.co/6yVCHcL/38aa5206e8bc.jpg` },
-      caption: tiny(alive),
-      footer: tiny(`amarok md` ),
-      buttons: [
-        {
-        buttonId: `owner`,
-        buttonText: {displayText: tiny("OWNER") },
-        },
-        {
-        buttonId: `menu`,
-        buttonText: {displayText: tiny("MENU") },
-        },
-      ],
-    });
-  }
-);
-
-//=======================================================================
-//                    ChatGpT AI 
-//=======================================================================
-
-
-
-//===============================================
-//           MENU DESIGN 
-//================================================
-
-command(
-  {
-    pattern: "men",
-    fromMe: isPrivate,
-    dontAddCommandList: true,
-  },
-async (message,match) => {
-	let logo = await jslbuffer(thumb)
-	let [date, time] = new Date()
-      .toLocaleString("en-IN", { timeZone: "Africa/Johannesburg" })
-      .split(",");
-let alive = `
-
- ╭───────────㋰
-    │╭──[ ${BOT_NAME} ]──㋰
-    ││*USER* :  ${message.pushName}
-    ││*NUMBER* :  ${m.sender.split("@")[0]}
-    ││*WORKTYPE* : ${WORK_TYPE}
-    │╰──㋰
-    │
-    │╭──[ ${OWNER_NAME}]──㋰
-    ││*BOTNAME* : ${BOT_NAME}
-    ││*TIME* : ${time}
-    ││*DATE* : ${date}
-    ││*OWNER* : ${OWNER_NAME}
-    ││*PREFIX* : ${HANDLERS}
-    ││*HOSTNAME* : ${hostname().split("-")[0]}
-    │╰──㋰
-    ╰───────────㋰\n`;
-
-await message.client.sendMessage(message.jid,{
-image: { url: `https://i.ibb.co/6yVCHcL/38aa5206e8bc.jpg` },
-      caption: tiny(alive),
-      footer: tiny(`amarok md` ),
-      buttons: [
-        {buttonId: '${prefix}alive', buttonText: {displayText: 'LIST MENU'}},
-      {buttonId: '${prefix}ping', buttonText: {displayText: 'ALIVE MENU'}}
-    ],
- 
-  contextInfo: {
-				externalAdReply: {
-					title:  "AMAROK-MD",
-					body: "TOXIC-TEAM",
-					mediaType: 2,
-					thumbnail: logo,
-					mediaUrl: 'https://amarok-deploy.vercel.app',
-					sourceUrl: 'https://amarok-deploy.vercel.app',
-					showAdAttribution: true
-					}
-				}
-			}, {quoted: message})
-			})
