@@ -48,23 +48,14 @@ fs.readdirSync("./lib/database/").forEach((plugin) => {
   }
 });
 
-async function Amarok() {
-  console.log("Syncing Database");
-  await config.DATABASE.sync();
+async function connectToWhatsApp() {
+  const { state } = await useMultiFileAuthState(__dirname + "/session");
 
-  const { state } = useMultiFileAuthState(
-    "./session.json",
-    pino({ level: "silent" })
-  );
-  let conn = makeWASocket({
-    logger: pino({ level: "silent" }),
+  const x = makeWASocket({
     auth: state,
     printQRInTerminal: true,
-
-    browser: Browsers.macOS("Desktop"),
-    downloadHistory: false,
-    syncFullHistory: false,
-  });
+    logger: P({ level: "silent" }),
+    patchMessageBeforeSending: (message) => {
   store.bind(conn.ev);
   //store.readFromFile("./database/store.json");
   setInterval(() => {
