@@ -33,7 +33,7 @@
   "homepage": "https://github.com/Diegoson/AMAROK-MD#readme",
   "dependencies": {
      
-    "@adiwajshing/eslint-config": "git+https://github.com/adiwajshing/eslint-config",
+  "@adiwajshing/baileys": "^4.4.0",
     
     "@adiwajshing/keyed-db": "^0.2.4",
     "api-dylux":"^1.2.8",
