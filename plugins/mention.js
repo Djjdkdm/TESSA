@@ -1,7 +1,7 @@
 const {SUDO} = require('../config');
 const { downloadMediaMessage } = require('@adiwajshing/baileys')
 const fetch = require("node-fetch")
-let img = 'https://i.imgur.com/1LE0IhC.jpeg'
+const  img = 'https://i.imgur.com/1LE0IhC.jpeg'
 var duration = 19998000
 const endi = {
       key: {
@@ -55,7 +55,7 @@ return message.client.sendMessage(message.jid, {audio,mimetype: 'audio/mp4',ptt:
               showAdAttribution: true
             }
           }
-        }, { quoted: endi })}
+        }, { quoted: message })}
 
 })}
 
