@@ -72,7 +72,7 @@ Description : ${i.desc}\`\`\``
       contextInfo:{
         externalAdReply:{
             title: tiny(`tessa-md`),
-            body: pushname,
+            body: pushName,
             thumbnail: logo,
             mediaType:2,
             mediaUrl: `https://www.instagram.com`,
