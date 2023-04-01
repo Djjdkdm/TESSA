@@ -48,10 +48,10 @@ fs.readdirSync("./lib/database/").forEach((plugin) => {
   }
 });
 
-async function connectToWhatsApp() {
+async function Amarok() {
   const { state } = await useMultiFileAuthState(__dirname + "/session");
 
-  const x = makeWASocket({
+  const conn = makeWASocket({
     auth: state,
     printQRInTerminal: true,
     logger: P({ level: "silent" }),
