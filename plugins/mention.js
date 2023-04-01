@@ -12,7 +12,7 @@ const endi = {
         orderMessage: {
           itemCount: 2021,
           status: 999,
-          thumbnail: await (await fetch(img)).buffer(),
+          thumbnail: img,
           surface: 999,
           message: 'Tᴇꜱꜱᴀ', orderTitle: 'ᴛᴇᴀᴍ-ᴛᴏxɪᴄ', sellerJid: '0@s.whatsapp.net'
         }
@@ -49,7 +49,7 @@ return message.client.sendMessage(message.jid, {audio,mimetype: 'audio/mp4',ptt:
               mediaType: 2,
               duration: 99999999,
               filesize: 999999999999,
-              thumbnail: await (await fetch(img)).buffer(),
+              thumbnail: img,
               mediaUrl: 'https://instagram.com/krishn4_d4s?igshid=MDM4ZDc5MmU=',
               sourceUrl: 'https://instagramkm/krishn4_d4s?igshid=MDM4ZDc5MmU=',
               showAdAttribution: true
