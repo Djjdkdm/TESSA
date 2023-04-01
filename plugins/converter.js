@@ -1,5 +1,4 @@
 const {
-  Function,
   command,
   qrcode,
   webp2mp4,
@@ -48,7 +47,7 @@ command(
   }
 );
 
-Function(
+command(
   {
     pattern: "img ?(.*)",
     fromMe: isPrivate,
