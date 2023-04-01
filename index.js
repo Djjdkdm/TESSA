@@ -42,6 +42,7 @@ async function Singmulti() {
   await multiauthState("session.json", __dirname + "/session", state);
 }
 Singmulti()
+setTimeout(() => {
 fs.readdirSync("./lib/database/").forEach((plugin) => {
   if (path.extname(plugin).toLowerCase() == ".js") {
     require("./lib/database/" + plugin);
@@ -177,6 +178,9 @@ async function Amarok() {
     console.log(err);
   });
 }
-setTimeout(() => {
   Amarok();
-}, 3000);
+}, 4000)
+// run in main file
+/*sleep(6000).then(() => {
+Amarok()
+  })*/
