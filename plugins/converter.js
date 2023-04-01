@@ -121,7 +121,7 @@ command(
 
     await pipeline(rbg, fs.createWriteStream("rbg.png"));
 
-    await message.sendMessage(fs.readFileSync("rbg.png"), {}, "image", { quoted : message });
+    await message.sendMessage(fs.readFileSync("rbg.png"), {}, quoted : message "image");
     await unlink(location);
     return await unlink("rbg.png");
   }
@@ -139,7 +139,7 @@ command(
     if (message.reply_message.mtype !== "stickerMessage")
       return await message.reply("_Not a sticker_");
     let buff = await m.quoted.download();
-    return await message.sendMessage(buff, {}, "image", { quoted : message });
+    return await message.sendMessage(buff, {}, quoted : message "image");
   }
 );
 
@@ -156,7 +156,7 @@ command(
       return await message.reply("_Not a sticker_");
     let buff = await m.quoted.download();
     let buffer = await webp2mp4(buff);
-    return await message.sendMessage(buffer, {}, "video", { quoted : message });
+    return await message.sendMessage(buffer, {}, quoted : message "video");
   }
 );
 
@@ -170,7 +170,7 @@ command(
     //if(message.reply_message.text) return await message.reply('_Reply to a video/audio_')
     let buff = await m.quoted.download();
     buff = await toAudio(buff, "mp3");
-    return await message.sendMessage(buff, { mimetype: "audio/mpeg" }, "audio", { quoted : message });
+    return await message.sendMessage(buff, { mimetype: "audio/mpeg" }, quoted : message "audio");
   }
 );
 command(
@@ -185,8 +185,8 @@ command(
     let buff = await m.quoted.download();
     message.sendMessage(
       buff,
-      { packname: config.STICKER_DATA.split(",")[0], author: config.STICKER_DATA.split(",")[1]},
-      "sticker", { quoted : message }
+      { packname: config.STICKER_DATA.split(",")[0], author: config.STICKER_DATA.split(",")[1]}, quoted : message
+      "sticker"
     );
   }
 );
@@ -221,8 +221,8 @@ command(
       );
       await message.sendMessage(
         `https://api.telegram.org/file/bot891038791:AAHWB1dQd-vi0IbH2NjKYUk-hqQ8rQuzPD4/${file_path.result.file_path}`,
-        { packname: config.STICKER_DATA.split(",")[0], author: config.STICKER_DATA.split(",")[1] },
-        "sticker", { quoted : message }
+        { packname: config.STICKER_DATA.split(",")[0], author: config.STICKER_DATA.split(",")[1] }, quoted : message
+        "sticker"
       );
       sleep(1500);
     }
@@ -243,9 +243,9 @@ command(
     await message.sendMessage(
       buff,
       {
-        packname : packname || config.STICKER_DATA.split(",")[0], author : author || config.STICKER_DATA.split(",")[1]
+        packname : packname || config.STICKER_DATA.split(",")[0], author : author || config.STICKER_DATA.split(",")[1], quoted : message
       },
-      "sticker", { quoted : message }
+      "sticker"
     );
   }
 );
