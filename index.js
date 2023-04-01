@@ -8,7 +8,7 @@ Diegoson - Amarok-MD
 
 const {
   default: makeWASocket,
-  useSingleFileAuthState,
+  useMultiFileAuthState,
   Browsers,
   makeInMemoryStore,
 } = require("@adiwajshing/baileys");
@@ -23,6 +23,7 @@ const config = require("./config");
 const { PluginDB } = require("./lib/database/plugins");
 const Greetings = require("./lib/Greetings");
 const { MakeSession } = require("./lib/session");
+const {multiauthState} = require("./lib/multiauth");
 const store = makeInMemoryStore({
   logger: pino().child({ level: "silent", stream: "store" }),
 });
@@ -34,12 +35,13 @@ let str = `\`\`\`AMAROK-MD STARTED \nversion : ${
       }\nTOTAL PLUGINS : ${events.commands.length}\nWORKTYPE: ${
         config.WORK_TYPE
       }\`\`\``;
-
-if (!fs.existsSync("./session.json")) {
-  MakeSession(config.SESSION_ID, "./session.json").then(
-    console.log("Vesrion : " + require("./package.json").version)
-  );
+async function Singmulti() {
+  if (!fs.existsSync(__dirname + "/session.json"))
+    await MakeSession("config.SESSION_ID", __dirname + "/session.json");
+  const { state } = await useMultiFileAuthState(__dirname + "/session");
+  await multiauthState("session.json", __dirname + "/session", state);
 }
+Singmulti()
 fs.readdirSync("./lib/database/").forEach((plugin) => {
   if (path.extname(plugin).toLowerCase() == ".js") {
     require("./lib/database/" + plugin);
@@ -50,7 +52,7 @@ async function Amarok() {
   console.log("Syncing Database");
   await config.DATABASE.sync();
 
-  const { state, saveState } = useSingleFileAuthState(
+  const { state } = useMultiFileAuthState(
     "./session.json",
     pino({ level: "silent" })
   );
