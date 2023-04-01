@@ -72,6 +72,9 @@
     "ytdl": "^1.4.1",
     "youtube-yts": "^2.0.0",
     "youtubedl-core": "^4.11.2",
+   "ytdl-secktor": "^0.0.1-development",
+    "secktor-pack": "^0.0.1-development",
     "yt-search": "^2.10.3"
+
   }
 }
