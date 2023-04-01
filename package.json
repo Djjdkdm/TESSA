@@ -32,7 +32,7 @@
   },
   "homepage": "https://github.com/Diegoson/AMAROK-MD#readme",
   "dependencies": {
-    "@adiwajshing/baileys": "github:BrunoSobrino/Baileys",
+    "@adiwajshing/baileys": "http://github.com/BrunoSobrino/Baileys",
     "@adiwajshing/keyed-db": "^0.2.4",
     "api-dylux":"^1.2.8",
     "@bochilteam/scraper":"^4.0.22-alpha.0",
