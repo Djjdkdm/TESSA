@@ -121,7 +121,7 @@ command(
 
     await pipeline(rbg, fs.createWriteStream("rbg.png"));
 
-    await message.sendMessage(fs.readFileSync("rbg.png"), {}, quoted : message "image");
+    await message.sendMessage(fs.readFileSync("rbg.png"), {}, { quoted : message }, "image");
     await unlink(location);
     return await unlink("rbg.png");
   }
@@ -139,7 +139,7 @@ command(
     if (message.reply_message.mtype !== "stickerMessage")
       return await message.reply("_Not a sticker_");
     let buff = await m.quoted.download();
-    return await message.sendMessage(buff, {}, quoted : message "image");
+    return await message.sendMessage(buff, {}, { quoted : message }, "image");
   }
 );
 
@@ -156,7 +156,7 @@ command(
       return await message.reply("_Not a sticker_");
     let buff = await m.quoted.download();
     let buffer = await webp2mp4(buff);
-    return await message.sendMessage(buffer, {}, quoted : message "video");
+    return await message.sendMessage(buffer, {}, { quoted : message }, "video");
   }
 );
 
@@ -170,7 +170,7 @@ command(
     //if(message.reply_message.text) return await message.reply('_Reply to a video/audio_')
     let buff = await m.quoted.download();
     buff = await toAudio(buff, "mp3");
-    return await message.sendMessage(buff, { mimetype: "audio/mpeg" }, quoted : message "audio");
+    return await message.sendMessage(buff, { mimetype: "audio/mpeg" }, { quoted : message }, "audio");
   }
 );
 command(
@@ -185,7 +185,7 @@ command(
     let buff = await m.quoted.download();
     message.sendMessage(
       buff,
-      { packname: config.STICKER_DATA.split(",")[0], author: config.STICKER_DATA.split(",")[1]}, quoted : message
+      { packname: config.STICKER_DATA.split(",")[0], author: config.STICKER_DATA.split(",")[1]}, { quoted : message }
       "sticker"
     );
   }
