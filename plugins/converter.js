@@ -11,7 +11,6 @@ const { search } = require("yt-search");
 const { toAudio } = require("../lib/media");
 let gis = require("g-i-s");
 const { AddMp3Meta } = require("../lib");
-
 const jimp = require("jimp");
 const QRReader = require("qrcode-reader");
 const { RMBG_KEY } = require("../config");
@@ -22,11 +21,12 @@ const stream = require("stream");
 const { promisify } = require("util");
 const pipeline = promisify(stream.pipeline);
 const fs = require("fs");
+
 command(
   {
     pattern: "qr ?(.*)",
     fromMe: isPrivate,
-    type: "Tool",
+    type: "converter",
   },
   async (message, match) => {
     match = match || message.reply_message.text;
@@ -59,7 +59,7 @@ Function(
     let [query, amount] = match.split(",");
     let result = await gimage(query, amount);
     await message.sendMessage(
-      `📸𝘈𝘔𝘈𝘙𝘖𝘒 𝘐𝘚 𝘋𝘖𝘞𝘕𝘓𝘖𝘈𝘋𝘐𝘕𝘎 𝘠𝘖𝘜𝘙 𝘐𝘔𝘈𝘎𝘌𝘚📸 ${amount || 5} 𝘐𝘔𝘈𝘎𝘌𝘚 𝘍𝘖𝘙 ${query}_`
+      `_Dowloading ${amount || 5} images for ${query}_`
     );
     for (let i of result) {
       await message.sendFromUrl(i);
@@ -87,7 +87,7 @@ command(
   {
     pattern: "vv ?(.*)",
     fromMe: isPrivate,
-    type: "tool",
+    type: "converter",
   },
   async (message, match, m) => {
     if (message.reply_message.type !== "view_once")
@@ -99,9 +99,9 @@ command(
 
 command(
   {
-    pattern: "removebg ?(.*)",
+    pattern: "rmbg ?(.*)",
     fromMe: isPrivate,
-    type: "group",
+    type: "converter",
   },
   async (message, match) => {
     if (!message.reply_message || !message.reply_message.image)
@@ -177,112 +177,5 @@ command(
     let buff = await m.quoted.download();
     buff = await toAudio(buff, "mp3");
     return await message.sendMessage(buff, { mimetype: "audio/mpeg" }, "audio");
-  }
-);
-command(
-  {
-    pattern: "fetch ?(.*)",
-    fromMe: isPrivate,
-    type: "downloader",
-  },
-  async (message, match) => {
-    match = match || message.reply_message.text;
-    if (!match)
-      return message.reply(
-        "_Send a direct media link_\n_*link;caption(optional)*_"
-      );
-    try {
-      let url = match.split(";")[0];
-      let options = {};
-      options.caption = match.split(";")[1];
-
-      if (isUrl(url)) {
-        message.sendFromUrl(url, options);
-      } else {
-        message.reply("_Not a URL_");
-      }
-    } catch (e) {
-      console.log(e);
-      message.reply("_No content found_");
-    }
-  }
-);
-command(
-  {
-    pattern: "yts ?(.*)",
-    fromMe: isPrivate,
-    type: "Search",
-  },
-  async (message, match) => {
-    if (!match) return await message.reply("_Enter a search term_");
-    let rows = [];
-    search(match).then(async ({ videos }) => {
-      videos.forEach((result) => {
-        rows.push({
-          title: result.title,
-          description: `\nDuration : ${result.duration.toString()}\nAuthor : ${
-            result.author
-          }\nPublished : ${result.ago}\nDescription : ${
-            result.description
-          }\nURL : ${result.url}`,
-          rowId: ` `,
-        });
-      });
-      await message.client.sendMessage(message.jid, {
-        text: "Youtube Search for " + match,
-        buttonText: "View Results",
-        sections: [
-          {
-            title: "Youtube Search",
-            rows: rows,
-          },
-        ],
-      });
-    });
-  }
-);
-
-command(
-  {
-    pattern: "ytv ?(.*)",
-    fromMe: isPrivate,
-    dontAddCommandList: true,
-  },
-  async (message, match) => {
-    match = match || message.reply_message.text;
-    if (!match) return await message.reply("_Enter a URL_");
-
-    if (!ytIdRegex.test(match)) return await message.reply("_Invalid Url_");
-    ytv(match).then(async ({ dl_link, title }) => {
-      await message.reply(`🔍𝘈𝘔𝘈𝘙𝘖𝘒 𝘐𝘚 𝘕𝘖𝘞 𝘋𝘖𝘞𝘕𝘓𝘖𝘈𝘋𝘐𝘕𝘎🔍 ${title}_`);
-      return await message.sendFromUrl(dl_link, {
-        filename: title,
-        quoted: message,
-      });
-    });
-  }
-);
-
-command(
-  {
-    pattern: "yta ?(.*)",
-    fromMe: isPrivate,
-    dontAddCommandList: true,
-  },
-  async (message, match) => {
-    match = match || message.reply_message.text;
-    if (!match) return await message.reply("_Enter a URL_");
-    if (!ytIdRegex.test(match)) return await message.reply("_Invalid Url_");
-    yta(match).then(async ({ dl_link, title, thumb }) => {
-      await message.reply(`🔍𝘈𝘔𝘈𝘙𝘖𝘒 𝘐𝘚 𝘕𝘖𝘞 𝘋𝘖𝘞𝘕𝘓𝘖𝘈𝘋𝘐𝘕𝘎🔍 ${title}_`);
-      let buff = await AddMp3Meta(dl_link, thumb, {
-        title,
-      });
-      return await message.sendMessage(
-        buff,
-        { mimetype: "audio/mpeg", quoted: message.data },
-        "audio"
-      );
-    });
   }
 );
