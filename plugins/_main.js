@@ -25,7 +25,7 @@ Description : ${i.desc}\`\`\``
       }
     } else {
     try {
-    pp = await message.getProfilePicture(message.jid) 
+    pp = await message.getProfilePicture(message.jid, 'image') 
     } catch {
     pp = `https://i.imgur.com/A5CwR8X.jpeg`
     }
