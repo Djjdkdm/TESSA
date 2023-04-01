@@ -1,24 +1,6 @@
-const {
-  Function,
-  command,
-  qrcode,
-  webp2mp4,
-  isUrl,
-  isPrivate,
-  getBuffer,
-  fetchJson,
-  proto,
-  tiny,
-  getJson,
-  getUrl,
-  isIgUrl,
- fetchBuffer,
-  generateWAMessageFromContent,
-  findMusic,
-} = require("../lib/");
+const {  command,  qrcode,  webp2mp4,  isUrl,  isPrivate,  getBuffer,  fetchJson,  proto,  tiny,  getJson,  getUrl,  isIgUrl, fetchBuffer,  generateWAMessageFromContent,  findMusic } = require("../lib/");
 const { WORK_TYPE, BOT_NAME, OWNER_NAME, HANDLERS } = require('../config.js')
 const  { igstory, igdl }  = require("../lib/scrape");
-
 const { yta, ytIdRegex, ytv } = require("../lib/yotube");
 const { ytMp4, ytMp3, ytPlay } = require("../lib/ytdl")
 const { y2mateA, y2mateV } = require("../lib/y2mate")
@@ -40,68 +22,7 @@ const stream = require("stream");
 const { promisify } = require("util");
 const pipeline = promisify(stream.pipeline);
 const fs = require("fs");
-/* Copyright (C) 2022 X-Electra.
-Licensed under the  GPL-3.0 License;
-you may not use this file except in compliance with the License.
-X-Asena - X-Electra
-*/
 
-
-
-Function(
-  {
-    pattern: "img",
-    fromMe: isPrivate,
-    desc: "Google Image search",
-    type: "downloader",
-  },
-  async (message, match) => {
-    if (!match) return await message.sendMessage("Enter Search Term,number");
-    let [query, amount] = match.split(",");
-    let result = await gimage(query, amount);
-    await message.sendMessage(
-      `_Downloading ${amount || 5} images for ${query}_`
-    );
-    for (let i of result) {
-      await message.sendFromUrl(i);
-    }
-  }
-);
-
-async function gimage(query, amount = 5) {
-  let list = [];
-  return new Promise((resolve, reject) => {
-    gis(query, async (error, result) => {
-      for (
-        var i = 0;
-        i < (result.length < amount ? result.length : amount);
-        i++
-      ) {
-        list.push(result[i].url);
-        resolve(list);
-      }
-    });
-  });
-}
-
-/* Copyright (C) 2022 X-Electra.
-Licensed under the  GPL-3.0 License;
-you may not use this file except in compliance with the License.
-X-Asena - X-Electra
-*/
-
-/* Copyright (C) 2022 X-Electra.
-Licensed under the  GPL-3.0 License;
-you may not use this file except in compliance with the License.
-X-Asena - X-Electra
-*/
-
-
-/* Copyright (C) 2022 X-Electra.
-Licensed under the  GPL-3.0 License;
-you may not use this file except in compliance with the License.
-X-Asena - X-Electra
-*/
 command({ 
     pattern : "tts" ,
     desc : "Text to speech",
@@ -109,105 +30,10 @@ command({
    },
 async (message , match ) => {
 
-if (!match) message.reply("tts Hello")
-              let tts = await getBuffer(`https://api.botcahx.biz.id/api/soundoftext?text=${match}&lang=id-ID&apikey=Admin`) 
-             message.client.sendMessage(message.jid, {audio: { url: tts.result }, mimetype:'audio/mpeg', ptt:false , contextInfo:{"externalAdReply": {"title": `WʜᴀᴛꜱKʀɪᴢ AI`,"body": ` ᴅᴏɴᴛ ꜱᴩᴀᴍ`, "previewType": "PHOTO","thumbnailUrl": `https://github.com/TOXIC-KICHUX/WHATS-KRIZ-AI`,"thumbnail": logo,"sourceUrl": "https://github.com/TOXIC-KICHUX/WHATS-KRIZ-AI"}}}, { quoted: message})
+if (!match) message.reply("tts Hello")
+              let tts = await getBuffer(`https://api.botcahx.biz.id/api/soundoftext?text=${match}&lang=id-ID&apikey=Admin`) 
+             message.client.sendMessage(message.jid, {audio: { url: tts.result }, mimetype:'audio/mpeg', ptt:false , contextInfo:{"externalAdReply": {"title": `WʜᴀᴛꜱKʀɪᴢ AI`,"body": ` ᴅᴏɴᴛ ꜱᴩᴀᴍ`, "previewType": "PHOTO","thumbnailUrl": `https://github.com/TOXIC-KICHUX/WHATS-KRIZ-AI`,"thumbnail": logo,"sourceUrl": "https://github.com/TOXIC-KICHUX/WHATS-KRIZ-AI"}}}, { quoted: message})
 })
-
-command(
-  {
-    pattern: "photo",
-    fromMe: isPrivate,
-    desc: "Changes sticker to Photo",
-    type: "converter",
-  },
-  async (message, match, m) => {
-    if (!message.reply_message)
-      return await message.reply("_Reply to a sticker_");
-    if (message.reply_message.mtype !== "stickerMessage")
-      return await message.reply("_Not a sticker_");
-    let buff = await m.quoted.download();
-    return await message.sendMessage(buff, {}, "image");
-  }
-);
-
-/* Copyright (C) 2022 X-Electra.
-Licensed under the  GPL-3.0 License;
-you may not use this file except in compliance with the License.
-X-Asena - X-Electra
-*/
-command(
-
-  {
-
-    pattern: "bc",
-
-    fromMe: isPrivate,
-
-    desc: "Broadcast...",
-
-    type: "misc",
-
-  },
-
-  async (message, match, client, m) => {
-      const quoted = m.quoted ? m.quoted : m
-const mime = (quoted.message || quoted).mimetype || ''
-
-        if (!match) return await message.reply("_enter text_")
-
-        let getGroups = await message.client.groupFetchAllParticipating()
-
-        let groups = Object.entries(getGroups).slice(0).map(entry => entry[1])
-
-        let krizcast = groups.map(v => v.id)
-
-        message.reply("_ Broadcasting in ${krizcast.length} Group Chat, in ${krizcast.length * 1.5} seconds_" )
-
-        for (let i of krizcast) {
-
-let txt = `OWNER_NAME' Broadcast\n\nMessage : ${match}`
-
-if(/image/.test(mime)) {
-
-let media = await quoted.download()
-
-await message.client.sendMessage(i, { image:media,  caption: txt,mentions:participants.map(a => a.id) })
-
-}
-
-if(/video/.test(mime)){
-
-let media = await quoted.download()
-
-await message.client.sendMessage(i, { video:media,  caption: txt, mentions:participants.map(a => a.id) })
-    }
-        }
-})
-
-command(
-  {
-    pattern: "mp4",
-    fromMe: isPrivate,
-    desc: "Changes sticker to Video",
-    type: "converter",
-  },
-  async (message, match, m) => {
-    if (!message.reply_message)
-      return await message.reply("_Reply to a sticker_");
-    if (message.reply_message.mtype !== "stickerMessage")
-      return await message.reply("_Not a sticker_");
-    let buff = await m.quoted.download();
-    let buffer = await webp2mp4(buff);
-    return await message.sendMessage(buffer, {}, "video");
-  }
-);
-
-/* Copyright (C) 2022 X-Electra.
-Licensed under the  GPL-3.0 License;
-you may not use this file except in compliance with the License.
-X-Asena - X-Electra
-*/
 
 command(
   {
@@ -216,32 +42,8 @@ command(
     desc: "Downloads Song",
     type: "downloader",
   },
-  async (message, match) => {
-    
-
-  
-
-      
-
-    
-      
-
-            
-    
-
-    
-
-      
+  async (message, match) => {      
 })
-  
-
-        
-
-         
-
-        
-
-    
 
     command(
   {
@@ -270,78 +72,36 @@ await message.client.sendMessage(message.jid,{
 },{quoted:message})
 await fs.unlinkSync(audio.path)
 });
-
-    
       
 command(
-
   {
-
     pattern: "ytmp4",
-
     fromMe: isPrivate,
-
     desc: "Downloading videos in 480p",
-
     type: "downloader",
-
   },
-
   async (message, match) => {
-
   if(!match) return await message.reply("_ytv starboy_")
-
 const krizmp4 = require("../lib/ytdl2")
-
 let ytsmp4 = require("youtube-yts")
-
         let krizsearch13 = await ytsmp4(match)
-
         let anuvidoke4 = krizsearch13.videos[0]
-
 const pl2= await krizmp4.mp4(anuvidoke4.url)
-
 await message.client.sendMessage(message.jid,{
-
     document: {url:pl2.videoUrl},
-
     fileName: anuvidoke4.title + '.mp4',
-
     mimetype: 'video/mp4',
-
     contextInfo:{
-
         externalAdReply:{
-
             title:anuvidoke4.title,
-
             body: BOT_NAME,
-
             thumbnail: await getBuffer(anuvidoke4.thumbnail),
-
             mediaType:2,
-
             mediaUrl:anuvidoke4.url,
-
         }
-
     },
-
 },{quoted:message});
-
 })
-
-
-          
-  
-  
-  
-
-/* Copyright (C) 2022 X-Electra.
-Licensed under the  GPL-3.0 License;
-you may not use this file except in compliance with the License.
-X-Asena - X-Electra
-*/
 
 command(
   {
@@ -350,11 +110,7 @@ command(
     desc: "Downloads video",
     type: "downloader",
   },
-async(message, match) => {
-            
-
-                
-                   
+async(message, match) => {               
               if (!match) return await message.reply("_video super man_")
             let ytsvideo = require("youtube-yts")
             let videosearch = await ytsvideo(match)
@@ -383,40 +139,8 @@ async(message, match) => {
             return message.client.sendMessage(message.jid, listMessage, {
                 quoted: message
             })
-                
-               
-            
-            
-
         }
     )
-
-
-/* Copyright (C) 2022 X-Electra.
-Licensed under the  GPL-3.0 License;
-you may not use this file except in compliance with the License.
-X-Asena - X-Electra
-*/
-
-command(
-  {
-    pattern: "mp3",
-    fromMe: isPrivate,
-    desc: "converts video/voice to mp3",
-    type: "downloader",
-  },
-  async (message, match, m) => {
-    //if(message.reply_message.text) return await message.reply('_Enter Video Name_')
-    let buff = await m.quoted.download();
-    buff = await toAudio(buff, "mp3");
-    return await message.sendMessage(buff, { mimetype: "audio/mpeg" }, "audio");
-  }
-);
-/* Copyright (C) 2022 X-Electra.
-Licensed under the  GPL-3.0 License;
-you may not use this file except in compliance with the License.
-X-Asena - X-Electra
-*/
 
 command(
   {
@@ -447,64 +171,27 @@ command(
     }
   }
 );
-/* Copyright (C) 2022 X-Electra.
-Licensed under the  GPL-3.0 License;
-you may not use this file except in compliance with the License.
-X-Asena - X-Electra
-*/
-
-
 //message.reply_message.text
-
-  
-    
-   
-
-
-  
-
-    
-
-   // match = match || message.reply_message.text;
-
-    
+//match = match || message.reply_message.text;
 
     command(
-
   {
-
     pattern: "insta",
-
     fromMe: isPrivate,
-
     desc: "downloads video from instagram",
-
     type: "downloader",
-
   },
-
   async (message, match) => {
-
     match = match || message.reply_message.text;
-
     if (!match) return await message.reply("_Enter link_");
-
     if (!match.includes("instagram.com"))
-
       return await message.reply("_Invalid URL_");
-
     let response = await igstory(match);
-
     if (response.status != 200) return message.reply("Not Found");
-
     for (let i of response.result) {
-
       message.sendFromUrl(i);
-
     }
-
   }
-
 );
 
 command(
@@ -543,12 +230,6 @@ command(
   }
 );
 
-
-
-
-
-
-
     command(
   {
     pattern: "play",
@@ -584,15 +265,6 @@ command(
                 message.client.sendMessage(message.jid, buttonMessage, { quoted: message });
   })             
               
-              
-  
-            
-
-    
-
-
-
-
 /*command(
   {
     pattern: "test",
@@ -601,14 +273,10 @@ command(
     type: "downloader",
   },
   async (message, match) => {
-           
-
-
  if (!match) return await message.reply("*_ytv starboy_*")
                 let yts = require("yt-search")
                 let search = await yts(match)
-                let anu = search.videos[Math.floor(Math.random() * search.videos.length)]            
-            
+                let anu = search.videos[Math.floor(Math.random() * search.videos.length)]                    
   let sections = [
      {  
     title: "TᴇꜱꜱᴀMᴡᴏL",
@@ -665,20 +333,6 @@ return await message.client.sendMessage(message.jid, listMessage, {
 
 })*/
  
-
-
-
-
-
-
-
-
-
-
-
-         
-
-
 command(
   {
     pattern: "ytv360",
@@ -695,40 +349,18 @@ command(
                 message.client.sendMessage(message.jid, { video: { url: media.dl_link }, mimetype: 'video/mp4', fileName: `${media.title}.mp4`, caption: `Title : ${media.title}\n File Size : ${media.filesizeF}\n Url : ${isUrl(match)}\n Ext : MP3\n Resolution : ${match[1] || '360p'}` }, { quoted: message });
                 })
 
-
 command(
-
   {
-
     pattern: "ytv480",
-
     fromMe: isPrivate,
-
     desc: "Downloading videos in 480p",
-
     type: "downloader",
-
   },
-
   async (message, match) => {
-
   let { ytv } = require("../lib/y2mate")
-
                 if (!match) return await message.reply("ytvs https://youtube.com/watch?v=PtFh6Tccag%27 480p")
-
                 let quality = match[1] ? match[1] : '480p'
-
                 let media = await ytv(match, quality)
-
                 if (media.filesize >= 100000) return message.reply("File Over Limit"+util.format(media))
-
                 message.client.sendMessage(message.jid, { video: { url: media.dl_link }, mimetype: 'video/mp4', fileName: `${media.title}.mp4`, caption: `Title : ${media.title}\n File Size : ${media.filesizeF}\n Url : ${isUrl(match)}\n Ext : MP3\n Resolution : ${match[1] || '480p'}` }, { quoted: message });
-
                 })
-            
-
-        
-  
-
-
-
