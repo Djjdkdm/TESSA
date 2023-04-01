@@ -63,8 +63,9 @@ Description : ${i.desc}\`\`\``
        menu += `◤${cmmd}◢`
         let comad = cmnd.filter(({ type }) => type == cmmd);
         comad.forEach(({ cmd }, num) => {
-          menu += `\n✠${(num += 1)} ${cmd.trim()}\n╚════════════╝\n`;
+          menu += `\n✠${(num += 1)} ${cmd.trim()}\n`;
         });
+         menu += `╚════════════╝`
          menu += `▼\n▼\n▼\n`
          });
         menu += tiny(`tessa-md`);
