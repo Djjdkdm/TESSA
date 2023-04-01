@@ -34,7 +34,7 @@ Description : ${i.desc}\`\`\``
       let [date, time] = new Date()
         .toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })
         .split(",");
-      let menu = `TESSA-TEST\n╔════════════╗\n`;
+      let menu = `TESSA-TEST\n`;
       let cmnd = [];
       let cmd;
       let category = [];
@@ -58,6 +58,7 @@ Description : ${i.desc}\`\`\``
           if (!category.includes(type)) category.push(type);
         }
        });
+      menu += `╔════════════╗\n`
       cmnd.sort();
       category.sort().forEach((cmmd) => {
        menu += `◤${cmmd}◢`
@@ -66,7 +67,7 @@ Description : ${i.desc}\`\`\``
           menu += `\n✠${(num += 1)} ${cmd.trim()}\n`;
         });
          menu += `╚════════════╝`
-         menu += `▼\n▼\n▼\n`
+         menu += `\n▼\n▼\n▼\n`
          });
         menu += tiny(`tessa-md`);
       return await message.client.sendMessage(message.jid, {
