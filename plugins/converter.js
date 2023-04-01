@@ -121,7 +121,7 @@ command(
 
     await pipeline(rbg, fs.createWriteStream("rbg.png"));
 
-    await message.sendMessage(fs.readFileSync("rbg.png"), {}, "image");
+    await message.reply(fs.readFileSync("rbg.png"), {}, "image");
     await unlink(location);
     return await unlink("rbg.png");
   }
@@ -139,7 +139,7 @@ command(
     if (message.reply_message.mtype !== "stickerMessage")
       return await message.reply("_Not a sticker_");
     let buff = await m.quoted.download();
-    return await message.sendMessage(buff, {}, "image");
+    return await message.reply(buff, {}, "image");
   }
 );
 
@@ -156,7 +156,7 @@ command(
       return await message.reply("_Not a sticker_");
     let buff = await m.quoted.download();
     let buffer = await webp2mp4(buff);
-    return await message.sendMessage(buffer, {}, "video");
+    return await message.reply(buffer, {}, "video");
   }
 );
 
@@ -170,7 +170,7 @@ command(
     //if(message.reply_message.text) return await message.reply('_Enter Video Name_')
     let buff = await m.quoted.download();
     buff = await toAudio(buff, "mp3");
-    return await message.sendMessage(buff, { mimetype: "audio/mpeg" }, "audio");
+    return await message.reply(buff, { mimetype: "audio/mpeg" }, "audio");
   }
 );
 command(
@@ -183,7 +183,7 @@ command(
     if (!(message.reply_message.video || message.reply_message.image))
       return await message.reply("_Reply to photo or video_");
     let buff = await m.quoted.download();
-    message.sendMessage(
+    message.reply(
       buff,
       { packname: config.STICKER_DATA.split(",")[0], author: config.STICKER_DATA.split(",")[1]},
       "sticker"
@@ -219,7 +219,7 @@ command(
       let file_path = await getJson(
         `https://api.telegram.org/bot891038791:AAHWB1dQd-vi0IbH2NjKYUk-hqQ8rQuzPD4/getFile?file_id=${sticker.file_id}`
       );
-      await message.sendMessage(
+      await message.reply(
         `https://api.telegram.org/file/bot891038791:AAHWB1dQd-vi0IbH2NjKYUk-hqQ8rQuzPD4/${file_path.result.file_path}`,
         { packname: config.STICKER_DATA.split(",")[0], author: config.STICKER_DATA.split(",")[1] },
         "sticker"
@@ -240,7 +240,7 @@ command(
       return await message.reply("_Reply to sticker_");
     let buff = await m.quoted.download();
     let [packname, author] = match.split(",");
-    await message.sendMessage(
+    await message.reply(
       buff,
       {
         packname : packname || config.STICKER_DATA.split(",")[0], author : author || config.STICKER_DATA.split(",")[1]
