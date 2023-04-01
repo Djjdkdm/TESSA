@@ -24,7 +24,12 @@ Description : ${i.desc}\`\`\``
           );
       }
     } else {
-    let logo = await jslbuffer(thumb)
+    try {
+    pp = await message.getProfilePicture(message.jid) 
+    } catch {
+    pp = `https://i.imgur.com/A5CwR8X.jpeg`
+    }
+    let logo = await jslbuffer(pp)
       let { prefix } = message;
       let [date, time] = new Date()
         .toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })
@@ -64,7 +69,6 @@ Description : ${i.desc}\`\`\``
          });
         menu += ``;
       return await message.client.sendMessage(message.jid, {
-      image: { url: 'https://i.imgur.com/A5CwR8X.jpeg', },
       caption: tiny(menu),
       footer: tiny(
              `tessa-md`),
