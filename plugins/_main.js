@@ -69,6 +69,7 @@ Description : ${i.desc}\`\`\``
          });
         menu += ``;
       return await message.client.sendMessage(message.jid, {
+      image: logo,
       caption: tiny(menu),
       footer: tiny(
              `tessa-md`),
