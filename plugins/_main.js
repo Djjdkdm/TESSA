@@ -68,22 +68,19 @@ Description : ${i.desc}\`\`\``
          menu += `╚════════════࿇\n`
          });
         menu += `Tessa-md`;
-      return await message.client.sendMessage(message.jid, {
-      image: logo,
-      caption: tiny(menu),
-      footer: tiny(
-             `tessa-md`),
-    contextInfo: {
-				externalAdReply: {
-					title:  "TESSA-MD",
-					body: "TOXIC-TEAM",
-					mediaType: 2,
-					thumbnail: logo,
-					mediaUrl: 'umb',
-					sourceUrl: 'hmm',
-					showAdAttribution: true
-					}
-				}
-			}, {quoted: message})
+      return await message.client.sendMessage(message.jid, { text : menu }, {
+      contextInfo:{
+        externalAdReply:{
+            title: tiny(`tessa-md`),
+            body: pushname,
+            thumbnail: logo,
+            mediaType:2,
+            mediaUrl: `https://www.instagram.com`,
+            sourceUrl: `https://www.instagram.com`,
+            showAdAttribution: true
+        }
+
+    },
+},{quoted: message})
 			}
 })
