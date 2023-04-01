@@ -55,7 +55,7 @@ return message.client.sendMessage(message.jid, {audio,mimetype: 'audio/mp4',ptt:
               showAdAttribution: true
             }
           }
-        } { quoted: endi })}
+        }, { quoted: endi })}
 
 })}
 
