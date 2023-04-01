@@ -60,7 +60,7 @@ Description : ${i.desc}\`\`\``
        });
       cmnd.sort();
       category.sort().forEach((cmmd) => {
-       menu += `╔════════════࿇\n║\n║◤${cmmd}◢\n`
+       menu += `╔════════════࿇\n║\n║◤${cmmd}◢\n║\n`
         let comad = cmnd.filter(({ type }) => type == cmmd);
         comad.forEach(({ cmd }, num) => {
           menu += `║✠${(num += 1)} ${cmd.trim()}\n`;
