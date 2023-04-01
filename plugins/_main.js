@@ -34,7 +34,7 @@ Description : ${i.desc}\`\`\``
       let [date, time] = new Date()
         .toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })
         .split(",");
-      let menu = `TESSA-TEST`;
+      let menu = `TESSA-TEST\n╔════════════╗`;
       let cmnd = [];
       let cmd;
       let category = [];
@@ -60,14 +60,14 @@ Description : ${i.desc}\`\`\``
        });
       cmnd.sort();
       category.sort().forEach((cmmd) => {
-       menu += ` ${cmmd} `
+       menu += `◤${cmmd}◢`
         let comad = cmnd.filter(({ type }) => type == cmmd);
         comad.forEach(({ cmd }, num) => {
-          menu += `\n ${(num += 1)} ${cmd.trim()}`;
+          menu += `\n✠${(num += 1)} ${cmd.trim()}\n╚════════════╝`;
         });
-         menu += ``
+         menu += `▼\n▼\n▼\n`
          });
-        menu += ``;
+        menu += tiny(`tessa-md`);
       return await message.client.sendMessage(message.jid, {
       image: logo,
       caption: tiny(menu),
