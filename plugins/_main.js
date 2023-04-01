@@ -58,16 +58,14 @@ Description : ${i.desc}\`\`\``
           if (!category.includes(type)) category.push(type);
         }
        });
-      menu += `╔════════════╗\n`
       cmnd.sort();
       category.sort().forEach((cmmd) => {
-       menu += `◤${cmmd}◢`
+       menu += `\n╔════════════╗\n◤${cmmd}◢`
         let comad = cmnd.filter(({ type }) => type == cmmd);
         comad.forEach(({ cmd }, num) => {
           menu += `\n✠${(num += 1)} ${cmd.trim()}\n`;
         });
          menu += `╚════════════╝`
-         menu += `\n▼\n▼\n▼\n`
          });
         menu += tiny(`tessa-md`);
       return await message.client.sendMessage(message.jid, {
