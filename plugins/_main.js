@@ -34,7 +34,7 @@ Description : ${i.desc}\`\`\``
       let [date, time] = new Date()
         .toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })
         .split(",");
-      let menu = `TESSA-TEST\n╔════════════╗`;
+      let menu = `TESSA-TEST\n╔════════════╗\n`;
       let cmnd = [];
       let cmd;
       let category = [];
@@ -63,7 +63,7 @@ Description : ${i.desc}\`\`\``
        menu += `◤${cmmd}◢`
         let comad = cmnd.filter(({ type }) => type == cmmd);
         comad.forEach(({ cmd }, num) => {
-          menu += `\n✠${(num += 1)} ${cmd.trim()}\n╚════════════╝`;
+          menu += `\n✠${(num += 1)} ${cmd.trim()}\n╚════════════╝\n`;
         });
          menu += `▼\n▼\n▼\n`
          });
