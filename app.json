@@ -29,6 +29,11 @@
       "required": true,
       "value": "."
     },
+    "STICKER_DATA": {
+      "description": "Add sticker data.",
+      "required": false,
+      "value": "TESSA-MD,TEAM-TOXIC"
+    },
     "LOGS": {
       "description": "need to show message logs ?",
       "required": true,
