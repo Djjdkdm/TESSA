@@ -185,7 +185,7 @@ command(
     let buff = await m.quoted.download();
     message.sendMessage(
       buff,
-      { packname: config.STICKER_DATA.split(",")[0], author: config.STICKER_DATA.split(",")[1]}, { quoted : message }
+      { packname: config.STICKER_DATA.split(",")[0], author: config.STICKER_DATA.split(",")[1]}, quoted : message,
       "sticker"
     );
   }
