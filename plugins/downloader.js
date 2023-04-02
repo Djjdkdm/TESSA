@@ -36,4 +36,5 @@ if (songId !== null){
 		let search = await yts(search)  
 		dMp3(search.all[0].url)
 	}
+}
 });
