@@ -1,67 +1,55 @@
 {
-  "name": "AMAROK-MD",
-  "description": "AMAROK-MD Multi Device whatsappbot",
-  "logo": "https://i.imgur.com/08HtgPp.jpeg",
-  "keywords": ["whatsapp"],
-  "repository": "https://github.com/Diegoson/AMAROK-MD",
-  "website": "https://github.com/Diegoson/AMAROK-MD",
-  "success_url": "https://github.com/Diegoson/AMAROK-MD",
-  "stack": "container",
-  "env": {
-    "ANTI_LINK": {
-      "description": "true/false",
-      "required": false
-    },
-    "ANTILINK_ACTION": {
-      "description": "kick",
-      "required": false
-    },
-    "RMBG_KEY": {
-      "description": "Remove bg api key ",
-      "required": false
-    },
-    "SESSION_ID": {
-      "description": "Your Session ID",
-      "required": true
-    },
-    "HANDLERS": {
-      "description": "prefix for commands, enter false for no prefix",
-      "required": true,
-      "value": "."
-    },
-    "STICKER_DATA": {
-      "description": "Add sticker data.",
-      "required": false,
-      "value": "TESSA-MD,TEAM-TOXIC"
-    },
-    "LOGS": {
-      "description": "need to show message logs ?",
-      "required": true,
-      "value": "😎CHAOS😎"
-    },
-    "PACKNAME": {
-      "description": "Sticker Packname",
-      "required": false
-    },
-    "GPTAPIKEY": {
-      "description": "Add api key for chatgptai"
-      "required": false
-    },
-    "GOODBYE_MSG": {
-      "description": "goodbye Message",
-      "required": false
-    },
-    "SUDO": {
-      "description": "sudo numbers with country code seperate with , for multiple numbers",
-      "required": false
-    },
-    "HEROKU_APP_NAME": {
-      "description": "Heroku app name, same as above entered",
-      "required": true
-    },
-    "HEROKU_API_KEY": {
-      "description": "Heroku account api key, https://dashboard.heroku.com/account",
-      "required": true
-    }
-  }
+   "name":"Krypton",
+   "description":"A WhatsApp Bot With Multi Device Supported",
+   "keywords":[
+      "bot",
+      "whatsapp"
+   ],
+   "website":"https://github.com/Kry9toN/KryPtoN-WhatsApp-Bot#readme",
+   "repository":"https://github.com/Kry9toN/KryPtoN-WhatsApp-Bot.git",
+   "logo":"https://i.ibb.co/mzcSXdy/koboo.png",
+   "success_url":"/",
+   "env":{
+      "NAME":{
+         "description":"Name of your bot",
+         "required":true
+      },
+      "PREFIX":{
+         "description":"Prefix of your bot",
+         "required":true
+      },
+      "MODS":{
+         "description":"The phone numbers of the users who you want to be admin for the bot (should be in international format without + and multiple numbers must be separated by a comma \",\")",
+         "required":true
+      },
+      "URL":{
+         "description":"A secret String for Mongodb Connection.(Required)",
+         "required":true
+      },
+      "OPENAI_API":{
+         "description":"A key used for OpenAI",
+         "required":true
+      },
+      "PORT":{
+         "description":"A port for your app",
+         "required":true
+      }
+   },
+   "buildpacks":[
+      {
+         "url":"heroku/nodejs"
+      },
+      {
+         "url":"https://github.com/PrajjwalDatir/heroku-buildpack-imagemagick.git"
+      },
+      {
+         "url":"https://github.com/clhuang/heroku-buildpack-webp-binaries.git"
+      },
+      {
+         "url":"https://github.com/ItsJimi/heroku-buildpack-pm2.git"
+      },
+      {
+         "url":"https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
+      }
+   ]
 }
