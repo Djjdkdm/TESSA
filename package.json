@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "krytron based on JavaScript",
   "author": "Debanjan-San",
+  "main": "./src/krypton.js",
   "keywords": [
     "Whatsapp",
     "WhatsApp-Bot",
