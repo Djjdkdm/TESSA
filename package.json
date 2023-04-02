@@ -11,8 +11,9 @@
   ],
   "license": "SEE LICENSE IN LICENSE.md",
   "scripts": {
-    "format": "prettier --write --config .prettierrc.json \"src/**/*.js\"",
-    "start": "node --max-old-space-size=4096 src/krypton.js"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "pm2 start . --attach --namespace whats-kriz-ai --name whats-kriz-ai --time",
+        "stop": "pm2 stop whats-kriz-ai"
   },
   "bugs": {
     "url": "https://github.com/Debanjan-San/krypton-WhatsappBot/issues"
