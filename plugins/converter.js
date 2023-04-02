@@ -188,7 +188,6 @@ command(
       { packname: config.STICKER_DATA.split(",")[0] , author: config.STICKER_DATA.split(",")[1] , quoted : message },
       "sticker"
     );
-  }
 });
 
 command(
@@ -247,7 +246,6 @@ command(
       },
       "sticker"
     );
-  }
 });
 
 command(
