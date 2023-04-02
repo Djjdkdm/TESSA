@@ -1,5 +1,5 @@
-FROM quay.io/cyber/amarok-bot
-RUN git clone https://github.com/Djjdkdm/TESSA /root/Diegoson/
-WORKDIR /root/Diegoson/
+FROM quay.io/toxic_kichux/whatskrizai:latest
+RUN git clone https://github.com/Djjdkdm/TESSA /root/Kriz/
+WORKDIR /root/Kriz/
 RUN yarn install --network-concurrency 1
-CMD ["yarn", "start"]
+CMD ["node", "src/krypton.js", "--max_old_space_size=2560"]
