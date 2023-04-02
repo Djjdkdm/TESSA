@@ -68,6 +68,6 @@ Description : ${i.desc}\`\`\``
          menu += `╚════════════࿇\n`
          });
         menu += `Tessa-md`;
-      return await message.client.sendMessage('```' + menu + '```')
+      return await message.reply("```" + menu + "```")
 			}
 })
