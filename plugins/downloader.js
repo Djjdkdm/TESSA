@@ -32,8 +32,7 @@ var songId = await mYtId(search)
 if (songId !== null){
 	let Link = 'https://youtu.be/' + songId[1]
 	dMp3(Link)
-	} else {
-		let search = await yts(search)  
+	} else { 
 		dMp3(search.all[0].url)
 	}
 }
