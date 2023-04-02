@@ -15,6 +15,9 @@ const fs = require('fs')
 const config = require('../config')
 const { STICKER_DATA, AUDIO_DATA } = require('../config.js')
 const { Image } = require('node-webpmux')
+const { translate } = require('@vitalets/google-translate-api');
+const defaultLang = 'en'
+const gptapikey = config.GPTAPIKEY
 
 command(
   {
@@ -251,7 +254,7 @@ command(
 command(
   {
     pattern: "getexif ?(.*)",
-    fromMe: true,
+    fromMe: isPrivate,
     type: "converter",
   },
   async (message, match, m) => {
@@ -263,3 +266,37 @@ command(
     await message.reply(exif);
   }
 );
+
+command(
+      {
+      pattern: "trt",
+      fromMe: isPrivate,
+      type: "converter",
+      },
+   async (message, match, m) => {
+      // if (!match || !m.quoted.text) return await message.sendMessage(`📌 *Example:*\n\n*tr* <lang> [text]\n*tr* ar Hello World`)
+      let args = match.split(' ')
+      let lang = args[0]
+      let text = args.slice(1).join(' ')
+      if ((args[0] || '').length !== 2) {
+         lang = defaultLang
+         text = args.join(' ')
+      }
+      if (!text && m.quoted && m.quoted.text) text = m.quoted.text
+      let result = await translate(text, {
+         to: lang,
+         autoCorrect: true
+      }).catch(_ => null)
+      await message.reply(result.text)
+   })
+
+command({
+  pattern: "ai ?(.*)",	
+  fromMe: isPrivate,
+  type: 'converter',
+}, 
+async (message, match) => {
+if (!match) return await message.sendMessage("_Example : .ai who is Tessa?_");
+let response  = await getJson(`https://api-viper-x0.vercel.app/api/openai?openaiapikey=${gptapikey}&text=${match}`)
+await message.reply(response.data.text);
+});
