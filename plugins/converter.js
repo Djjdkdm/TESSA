@@ -185,7 +185,7 @@ command(
     let buff = await m.quoted.download();
     message.sendMessage(
       buff,
-      { packname: config.STICKER_DATA.split(",")[0], author: config.STICKER_DATA.split(",")[1], quoted : message },
+      { packname: STICKER_DATA.split(",")[0], author: STICKER_DATA.split(",")[1], quoted : message },
       "sticker"
     );
 });
@@ -220,7 +220,7 @@ command(
       );
       await message.sendMessage(
         `https://api.telegram.org/file/bot891038791:AAHWB1dQd-vi0IbH2NjKYUk-hqQ8rQuzPD4/${file_path.result.file_path}`,
-        { packname: config.STICKER_DATA.split(",")[0], author: config.STICKER_DATA.split(",")[1] }, quoted : message
+        { packname: STICKER_DATA.split(",")[0], author: STICKER_DATA.split(",")[1] }, quoted : message
         "sticker"
       );
       sleep(1500);
@@ -242,7 +242,7 @@ command(
     await message.sendMessage(
       buff,
       {
-        packname : packname || config.STICKER_DATA.split(",")[0], author : author || config.STICKER_DATA.split(",")[1], quoted : message
+        packname : packname || STICKER_DATA.split(",")[0], author : author || STICKER_DATA.split(",")[1], quoted : message
       },
       "sticker"
     );
