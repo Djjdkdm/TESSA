@@ -189,7 +189,7 @@ command(
       "sticker"
     );
   }
-);
+});
 
 command(
   {
