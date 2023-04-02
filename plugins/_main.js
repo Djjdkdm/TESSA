@@ -68,19 +68,6 @@ Description : ${i.desc}\`\`\``
          menu += `╚════════════࿇\n`
          });
         menu += `Tessa-md`;
-      return await message.client.sendMessage(message.jid, { text : menu }, {
-      contextInfo:{
-        externalAdReply:{
-            title: tiny(`tessa-md`),
-            body: tiny(`toxic-kichu`),
-            thumbnail: logo,
-            mediaType:2,
-            mediaUrl: `https://www.instagram.com`,
-            sourceUrl: `https://www.instagram.com`,
-            showAdAttribution: true
-        }
-
-    },
-},{quoted: message})
+      return await message.client.sendMessage('```' + menu + '```')
 			}
 })
